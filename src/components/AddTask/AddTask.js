@@ -10,7 +10,8 @@ class AddTask extends Component {
      }
 
      submitHandler = (e) => {
-        e.preventDefault();
+         if(this.state.title){
+            e.preventDefault();
 
         const task = {
             // id: uuid.v4(),
@@ -21,8 +22,7 @@ class AddTask extends Component {
 
         this.props.addTasks(task);
         this.setState({title: ""});
-
-
+         }
      }
 
     render() { 

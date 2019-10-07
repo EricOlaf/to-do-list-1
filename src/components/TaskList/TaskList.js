@@ -5,13 +5,15 @@ import { connect } from 'react-redux';
 import { fetchTasks } from '../../actions/taskActions';
 
 class TaskList  extends Component {
-
+    state={
+        question: "no"
+    }
     componentDidMount(){
         this.props.fetchTasks();
     }
 
     render() { 
-        return this.props.isFulfilled ? this.props.tasks.map((task) =>
+        return  this.props.isFulfilled ? this.props.tasks.map((task) =>
             <Task key={task.id} task={task}/>  
             ) : <h2>Loading</h2>
         }

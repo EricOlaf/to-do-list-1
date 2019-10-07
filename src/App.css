@@ -20,3 +20,18 @@
 .App-link {
   color: #09d3ac;
 }
+
+.orange, .grey{
+  width: 12rem;
+  height: 2rem;
+  border-radius: 5px;
+  font-size: 1.2rem;
+}
+
+.orange{
+  background: orange;
+}
+.grey{
+  background: grey;
+  color: white
+}

@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 // import ls from 'local-storage';
 import { getTask, updateTask, deleteTask, completeTask } from '../../actions/taskActions';
 
+import "./Details.css"
+
 class Details extends Component {
     constructor(props){
         super(props)
@@ -92,31 +94,31 @@ class Details extends Component {
         const {title, description} = this.state;
         return(
             <div>
-                <Link to="/"><p>Back to Home Page</p></Link>
-                <h1>DETAILS</h1>
+                <Link to="/" className="center"><p className="details__link">Back to Home Page</p></Link>
+                <h1>Task Details</h1>
                 <form onSubmit={this.updateHandler}>
                     <div>
-                        <label>
+                        <label className="label">
                             Title:
                             <input onChange={(e) => this.changeHandler(e)} style={inputStyles}type="text" name="title" value={title} />
                         </label>
                     </div>
                     <br></br>
                     <div>
-                    <label>
+                    <label className="label">
                         Description:
-                        <input onChange={(e) => this.changeHandler(e)} style={inputStyles}type="textarea" name="description" value={description}/>
+                        <input onChange={(e) => this.changeHandler(e)} style={inputStyles} type="textarea" name="description" value={description}/>
                     </label>
                     </div>
                     <br></br>
-                    <input type="submit" value="Submit" />
+                    <input className="btn" type="submit" value="Submit" />
                     <Link to="/">
-                        <button onClick={this.deleteHandler}>Delete Task</button>
+                        <button className="btn" onClick={this.deleteHandler}>Delete Task</button>
                     </Link>
                     <Link to="/">
-                        <button onClick={this.completeHandler}>Complete Task</button>
+                        <button className="btn" onClick={this.completeHandler}>Complete Task</button>
                     </Link>
-                    <button onClick={this.changeBack}>Revert to original</button>
+                    <button className="btn" onClick={this.changeBack}>Revert</button>
                 </form>
             </div>
         )  
@@ -125,7 +127,9 @@ class Details extends Component {
  
 const inputStyles = {
     height: "5vh", 
-    width: "40vw"
+    width: "40vw",
+    fontSize: "1.1rem",
+    marginLeft: "1rem"
 }
 
 Details.propTypes = {

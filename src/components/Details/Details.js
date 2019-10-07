@@ -18,36 +18,36 @@ class Details extends Component {
     
 
     async componentDidMount(){
-        this.props.tasks.forEach(t=> 
-            parseInt(t.id) === parseInt(this.props.match.params.id) ?
-            (function(){
-                localStorage.setItem('title', t.title)
-                localStorage.setItem('id', t.id)
-                localStorage.setItem('description', t.description)
-                localStorage.setItem('completed', t.completed)
-            })()
-            : null
-        )
-
-        this.setState({
-            title: localStorage.getItem('title'),
-            description: localStorage.getItem('description'),
-            id: localStorage.getItem('id'),
-            completed: localStorage.getItem('completed')
-        })
-
-
-
         // this.props.tasks.forEach(t=> 
         //     parseInt(t.id) === parseInt(this.props.match.params.id) ?
-        //     this.setState({
-        //         title: t.title,
-        //         description: t.description,
-        //         id: t.id,
-        //         completed: t.completed
-        //     })
+        //     (function(){
+        //         localStorage.setItem('title', t.title)
+        //         localStorage.setItem('id', t.id)
+        //         localStorage.setItem('description', t.description)
+        //         localStorage.setItem('completed', t.completed)
+        //     })()
         //     : null
         // )
+
+        // this.setState({
+        //     title: localStorage.getItem('title'),
+        //     description: localStorage.getItem('description'),
+        //     id: localStorage.getItem('id'),
+        //     completed: localStorage.getItem('completed')
+        // })
+
+
+
+        this.props.tasks.forEach(t=> 
+            parseInt(t.id) === parseInt(this.props.match.params.id) ?
+            this.setState({
+                title: t.title,
+                description: t.description,
+                id: t.id,
+                completed: t.completed
+            })
+            : null
+        )
     }
 
     changeHandler = (e) => {
@@ -60,7 +60,8 @@ class Details extends Component {
     }
 
     completeHandler = () => {
-        let {id} = this.state.id;
+        console.log("hit handler")
+        let {id} = this.state
         this.props.completeTask(id)
     }
 

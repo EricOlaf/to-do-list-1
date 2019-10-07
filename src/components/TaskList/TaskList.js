@@ -11,7 +11,7 @@ class TaskList  extends Component {
     }
 
     render() { 
-        return this.props.tasks.map((task) => 
+        return this.props.tasks.map((task) =>
             <Task key={task.id} task={task}/>  
             )}
 }

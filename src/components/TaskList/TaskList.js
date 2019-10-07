@@ -11,9 +11,10 @@ class TaskList  extends Component {
     }
 
     render() { 
-        return this.props.tasks.map((task) =>
+        return this.props.isFulfilled ? this.props.tasks.map((task) =>
             <Task key={task.id} task={task}/>  
-            )}
+            ) : <h2>Loading</h2>
+        }
 }
  
 TaskList.propTypes = {
@@ -22,7 +23,9 @@ TaskList.propTypes = {
 }
 
 const mapStateToProps = state => ({
-    tasks: state.tasks.taskList
+    tasks: state.tasks.taskList,
+    isFulfilled: state.tasks.isFulfilled,
+    isLoading: state.tasks.isLoading
 })
 
 export default connect(mapStateToProps, {fetchTasks})(TaskList);

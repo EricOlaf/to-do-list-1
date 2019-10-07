@@ -6,7 +6,7 @@ export const fetchTasks = () => dispatch => {
         .then(res=> res.data)
         .then(tasks => dispatch({
             type: FETCH_TASKS,
-            payload: tasks
+            payload: Promise.resolve(tasks)
         }));
 }
 

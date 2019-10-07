@@ -2,16 +2,32 @@ import {FETCH_TASKS, ADD_TASKS, DELETE_TASKS, COMPLETE_TASKS, GET_TASK, UPDATE_T
 
 const initialState = {
     taskList: [],
-    task: {}
+    task: {},
+    isLoading: false,
+    isFulfilled: false,
+    isRejected: false
 }
 
 export default function(state = initialState, action){
     switch(action.type){
-        case FETCH_TASKS:
+        case `${FETCH_TASKS}_PENDING`:
             return{
                 ...state,
-                taskList: action.payload
+                isLoading:true
             };
+        case `${FETCH_TASKS}_FULFILLED`:
+            return{
+                ...state,
+                taskList: action.payload,
+                isFulfilled: true,
+                isLoading: false
+            };
+        case `${FETCH_TASKS}_REJECTED`:
+                return{
+                    ...state,
+                    taskList: action.payload,
+                    isRejected: true
+                };
         case ADD_TASKS:
             return{
                 ...state,

@@ -1,7 +1,8 @@
-import {FETCH_TASKS, ADD_TASKS, DELETE_TASKS, COMPLETE_TASKS} from "../actions/types"
+import {FETCH_TASKS, ADD_TASKS, DELETE_TASKS, COMPLETE_TASKS, GET_TASK, UPDATE_TASK} from "../actions/types"
 
 const initialState = {
-    taskList: []
+    taskList: [],
+    task: {}
 }
 
 export default function(state = initialState, action){
@@ -14,21 +15,29 @@ export default function(state = initialState, action){
         case ADD_TASKS:
             return{
                 ...state,
-                taskList:[action.payload, ...state.taskList]
+                taskList: action.payload
             };
         case DELETE_TASKS:
             return{
                 ...state,
-                taskList: state.taskList.filter(t=> t.id !== action.payload)
+                taskList: action.payload
             };
         case COMPLETE_TASKS:
             return{
                 ...state,
-                taskList: state.taskList.map(t=> t.id === action.payload ? {
-                    id: t.id,
-                    title: t.title,
-                    completed: true
-                  } : t)
+                taskList: action.payload
+            };
+        case GET_TASK:
+            console.log(action.payload)
+            return{
+                ...state,
+                task: action.payload
+            };
+        case UPDATE_TASK:
+            console.log(action.payload)
+            return{
+                ...state,
+                taskList: action.payload
             };
         default:
             return state;

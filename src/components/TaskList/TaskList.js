@@ -18,13 +18,11 @@ class TaskList  extends Component {
  
 TaskList.propTypes = {
     fetchTasks: PropTypes.func.isRequired,
-    tasks: PropTypes.array.isRequired,
-    addTask: PropTypes.object
+    tasks: PropTypes.array.isRequired
 }
 
 const mapStateToProps = state => ({
-    tasks: state.tasks.taskList,
-    addTask: state.tasks.task
+    tasks: state.tasks.taskList
 })
 
 export default connect(mapStateToProps, {fetchTasks})(TaskList);

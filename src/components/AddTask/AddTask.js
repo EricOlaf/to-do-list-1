@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import uuid from 'uuid';
+//import uuid from 'uuid';
 import PropTypes from 'prop-types';
 import { addTasks } from '../../actions/taskActions';
 import { connect } from 'react-redux';
@@ -13,8 +13,9 @@ class AddTask extends Component {
         e.preventDefault();
 
         const task = {
-            id: uuid.v4(),
+            // id: uuid.v4(),
             title: this.state.title,
+            description: "",
             completed: false
           }
 

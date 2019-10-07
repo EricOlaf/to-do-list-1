@@ -1,17 +1,30 @@
 import React, { Component } from 'react';
 import Task from '../Task/Task';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchTasks } from '../../actions/taskActions';
 
 class TaskList  extends Component {
 
+    componentDidMount(){
+        this.props.fetchTasks();
+    }
+
     render() { 
-        return this.props.list.map((task) => 
-            <Task key={task.id} checkComplete={this.props.checkComplete} deleteTask={this.props.deleteTask} task={task}/>  
+        return this.props.tasks.map((task) => 
+            <Task key={task.id} task={task}/>  
             )}
 }
  
 TaskList.propTypes = {
-    list: PropTypes.array.isRequired
+    fetchTasks: PropTypes.func.isRequired,
+    tasks: PropTypes.array.isRequired,
+    addTask: PropTypes.object
 }
 
-export default TaskList ;
+const mapStateToProps = state => ({
+    tasks: state.tasks.taskList,
+    addTask: state.tasks.task
+})
+
+export default connect(mapStateToProps, {fetchTasks})(TaskList);

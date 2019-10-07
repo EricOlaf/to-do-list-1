@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import uuid from 'uuid';
+import PropTypes from 'prop-types';
+import { addTasks } from '../../actions/taskActions';
+import { connect } from 'react-redux';
 
 class AddTask extends Component {
     state = { 
@@ -7,12 +11,20 @@ class AddTask extends Component {
 
      submitHandler = (e) => {
         e.preventDefault();
-        this.props.submitHandler(this.state.title)
-        this.setState({title: ""})
+
+        const task = {
+            id: uuid.v4(),
+            title: this.state.title,
+            completed: false
+          }
+
+        this.props.addTasks(task);
+        this.setState({title: ""});
+
+
      }
 
     render() { 
-        console.log(this.state)
         return (
             <div>
                 <form onSubmit={this.submitHandler}style={{display: "flex", margin:"1.5rem 2rem 0 2rem"}}>
@@ -25,5 +37,9 @@ class AddTask extends Component {
         );
     }
 }
+
+AddTask.prototypes = {
+    addTasks: PropTypes.func.isRequired
+}
  
-export default AddTask;
+export default connect(null, {addTasks})(AddTask);

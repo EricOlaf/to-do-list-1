@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import { deleteTask, completeTask } from '../../actions/taskActions';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class Task extends Component {
@@ -11,14 +12,22 @@ class Task extends Component {
         }
     }
 
+    deleteHandler = () => {
+        this.props.deleteTask(this.props.task.id)
+    }
+
+    completeHandler = () => {
+        this.props.completeTask(this.props.task.id)
+    }
+
     
     render() { 
         const {title, id, completed} = this.props.task;
         return (  
             <div style={{backgroundColor:"gray", display:"flex", margin:"1rem 0"}}key={id}>
-                {completed ? null : <input style={{margin: '1.5rem 0 1.5rem  1.5rem'}} type="checkbox" onChange={this.props.checkComplete.bind(this, id)}></input>}
+                {completed ? null : <input style={{margin: '1.5rem 0 1.5rem  1.5rem'}} type="checkbox" onChange={()=>this.completeHandler()}></input>}
                 <h3 style={this.getStyle()}>{title}</h3>
-                <button style={btnStyle} onClick={this.props.deleteTask.bind(this, id)}>X</button>
+                <button style={btnStyle} onClick={this.deleteHandler}>X</button>
             </div>  
         );
     }
@@ -32,7 +41,9 @@ const btnStyle = {
 
 
 Task.propTypes = {
-    task: PropTypes.object.isRequired
+    task: PropTypes.object.isRequired,
+    deleteTask: PropTypes.func.isRequired,
+    completeTask: PropTypes.func.isRequired
 }
  
-export default Task;
+export default connect(null, {deleteTask, completeTask})(Task);

@@ -70,7 +70,8 @@ class Details extends Component {
     updateHandler = (e) => {
         e.preventDefault();
         const {id, title, description} = this.state;
-        this.props.updateTask(id, title, description)
+        this.props.updateTask(id, title, description);
+        this.props.history.push(`/`)
     }
 
     changeBack = () => {

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+// import ls from 'local-storage';
 import { getTask, updateTask, deleteTask, completeTask } from '../../actions/taskActions';
 
 class Details extends Component {
@@ -10,21 +11,43 @@ class Details extends Component {
         this.state = {
             title: '',
             description: '',
-            id: 0
+            id: 0,
+            completed: false
         }
     }
     
 
     async componentDidMount(){
-        this.props.getTask(this.props.match.params.id)
         this.props.tasks.forEach(t=> 
             parseInt(t.id) === parseInt(this.props.match.params.id) ?
-            this.setState({
-                title: t.title,
-                description: t.description,
-                id: t.id
-            }) : null
+            (function(){
+                localStorage.setItem('title', t.title)
+                localStorage.setItem('id', t.id)
+                localStorage.setItem('description', t.description)
+                localStorage.setItem('completed', t.completed)
+            })()
+            : null
         )
+
+        this.setState({
+            title: localStorage.getItem('title'),
+            description: localStorage.getItem('description'),
+            id: localStorage.getItem('id'),
+            completed: localStorage.getItem('completed')
+        })
+
+
+
+        // this.props.tasks.forEach(t=> 
+        //     parseInt(t.id) === parseInt(this.props.match.params.id) ?
+        //     this.setState({
+        //         title: t.title,
+        //         description: t.description,
+        //         id: t.id,
+        //         completed: t.completed
+        //     })
+        //     : null
+        // )
     }
 
     changeHandler = (e) => {
@@ -32,15 +55,23 @@ class Details extends Component {
     }
 
     deleteHandler = () => {
-        this.props.deleteTask(this.state.id)
+        let {id} = this.state
+        this.props.deleteTask(id)
     }
 
     completeHandler = () => {
-        this.props.completeTask(this.state.id)
+        let {id} = this.state.id;
+        this.props.completeTask(id)
+    }
+
+    updateHandler = (e) => {
+        e.preventDefault();
+        const {id, title, description} = this.state;
+        this.props.updateTask(id, title, description)
     }
 
     changeBack = () => {
-        const task = this.props.tasks.filter((e) => e.id == this.props.match.params.id);
+        
         this.props.tasks.forEach(t=> 
             parseInt(t.id) === parseInt(this.props.match.params.id) ?
             this.setState({
@@ -52,14 +83,17 @@ class Details extends Component {
     }
 
 
+
+
     render() {
         console.log(this.state)
+        console.log(this.props.tasks)
         const {title, description} = this.state;
         return(
             <div>
                 <Link to="/"><p>Back to Home Page</p></Link>
                 <h1>DETAILS</h1>
-                <form onSubmit={() => this.props.updateTask(this.state)}>
+                <form onSubmit={this.updateHandler}>
                     <div>
                         <label>
                             Title:

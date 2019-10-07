@@ -51,11 +51,11 @@ export const getTask = (id) => dispatch => {
         }));
   }
 
-  export const updateTask = (task) => dispatch => {
-    console.log(task)
-    axios.patch(`https://practiceapi.devmountain.com/api/tasks${task.id}`, {
-        title: task.title,
-        description: task.description,
+  export const updateTask = (id, title, description) => dispatch => {
+    console.log("HIT update with ", title, id, description)
+    axios.patch(`https://practiceapi.devmountain.com/api/tasks/${id}`, {
+        title: title,
+        description: description,
 
     })
     .then(res=> res.data)
